@@ -1,69 +1,22 @@
 package Tie::IxHash::FromText;
 
+
 use strict;
+
+our $VERSION = '0.02';
+
 use Tie::IxHash;
+
 require Exporter;
 our @ISA = qw(Exporter);
-our @EXPORT = qw(ixhash_parse);
+our @EXPORT = qw(
+		 ixhash_parse
+		 );
 
-our $VERSION = '0.01';
-
-
-sub _ixhash {
-    my %h;
-    tie(%h, 'Tie::IxHash');
-    \%h;
-}
+use Tie::IxHash::FromText::Parse;
 
 sub ixhash_parse {
-    local $_ = shift;
-    s/^[\s\n]+//so;
-    s/^\*+\*\s/* /so;
-    s/\n+$//sg;
-    s/\n+/\n/sg;
-    s/\s+$//mg;
-    $_.=$/;
-
-#    print ;    print $/x3;
-    my @last = (0);
-    my @st = ();
-    my $tree=_ixhash();
-    s/^([\*]+)\s+(.+)/
-      #	print "$1 $2\n";
-      if(length($1) > $last[-1]){
-	push @last, length($1);
-	push @st, $2;
-#	print '$tree->'.join('->', map{"{'$_'}"}@st)."\n";
-	eval '$tree->'.join('->', map{"{'$_'}"}@st).'=_ixhash()';
-      }
-    elsif(length($1) < $last[-1]){
-      foreach (1..$last[-1] - length($1)){
-#	print '...';
-	pop @st;
-	pop @last;
-      }
-	if(length($1) eq $last[-1]){
-	  pop @st;
-	  pop @last;
-	  push @last, length($1);
-	  push @st, $2;
-	}
-#      print '$tree->'.join('->', map{"{'$_'}"}@st)."\n";
-      eval '$tree->'.join('->', map{"{'$_'}"}@st).'=_ixhash()';
-    }
-    else {
-      pop @st;
-      pop @last;
-      push @last, length($1);
-      push @st, $2;
-#      print '$tree->'.join('->', map{"{'$_'}"}@st)."\n";
-	
-      eval '$tree->'.join('->', map{"{'$_'}"}@st).'=_ixhash()';
-    }
-#    print " (@last) (@st)\n\n";
-    
-/mexg;
-    $tree;
+    Tie::IxHash::FromText::Parse::_parse(shift(), 'i');
 }
 
 1;

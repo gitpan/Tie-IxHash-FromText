@@ -7,6 +7,7 @@ version_from    ('lib/Tie/IxHash/FromText.pm');
 license         ('perl');
 
 requires        ('Tie::IxHash');
+requires        ('Tie::DxHash');
 build_requires  ('Test::More');
 auto_install();
 

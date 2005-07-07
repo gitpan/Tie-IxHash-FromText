@@ -8,9 +8,12 @@ inc/Module/Install/Makefile.pm
 inc/Module/Install/Metadata.pm
 inc/Module/Install/Win32.pm
 inc/Module/Install/WriteAll.pm
+lib/Tie/DxHash/FromText.pm
 lib/Tie/IxHash/FromText.pm
+lib/Tie/IxHash/FromText/Parse.pm
 Makefile.PL
 MANIFEST			This list of files
 META.yml
+t/d_parse.t
+t/i_parse.t
 t/load.t
-t/parse.t

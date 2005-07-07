@@ -1,5 +1,5 @@
 name: Tie-IxHash-FromText
-version: 0.01
+version: 0.02
 abstract: A parser for contructing IxHash objects
 author: Yung-chung Lin <xern@cpan.org>
 license: perl
@@ -8,6 +8,7 @@ build_requires:
   Test::More: 0
 requires:
   Tie::IxHash: 0
+  Tie::DxHash: 0
 no_index:
   directory:
     - inc
